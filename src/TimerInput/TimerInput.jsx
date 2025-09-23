@@ -29,8 +29,8 @@ function TimerInput({ timers, onSetTimers }) {
         console.log(`Updating ${key} to ${value}`)
         setLocalInput(prev => ({ ...prev, [key]: value }))
 
-        // map key to user-friendly names
-        const names = {
+        // map timer keys to user-friendly names
+        const intervalNames = {
             work: "Work Time",
             shortBreak: "Short Break",
             longBreak: "Long Break"
@@ -44,7 +44,7 @@ function TimerInput({ timers, onSetTimers }) {
             const newErrors = { ...prevErrors }
 
             if (isNaN(newValue) || newValue < 1) {
-                newErrors[key] = `${names[key]} must be a number greater than 0.`
+                newErrors[key] = `${intervalNames[key]} must be a number greater than 0.`
             }
             else {
                 delete newErrors[key] // remove error if input is valid
