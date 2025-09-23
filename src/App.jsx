@@ -2,48 +2,61 @@ import { useState } from 'react'
 import { Container, Row, Col } from 'react-bootstrap'  
 import './App.css'
 import TimerInput from './TimerInput/TimerInput.jsx'
-
-
-// hi misha. please stoer all your shit in this file
-
-// goal: create a pomodoro timer app
-// features:
-// - start/pause timer
-  // two buttons or one toggle button
-// - reset timer
-  // 
-// - set work/break intervals
-// - display time remaining
-  // mm:ss format with leading zeros
-// - track completed intervals
-  // count of completed work intervals
-// - notify when interval ends
-  // visual & sound notification
+import ClockDisplay from './ClockDisplay/ClockDisplay.jsx';
 
 // app component 
 function App() {
-  // timer state & preset times
+
+  // timers state to manage work/break intervals
   const [timers, setTimers] = useState({
+    // default pomodoro values
     work: 25,
     shortBreak: 5,
     longBreak: 15
   });
 
-  // customized timer state
+  // counter for work intervals completed - for determining when to take long break
+  const [completedWorkIntervals, setCompletedWorkIntervals] = useState(0);
+
+  // mapping timer keys to user-friendly names
+  // const intervalNames = {
+  //   work: "Work Time",
+  //   shortBreak: "Short Break",
+  //   longBreak: "Long Break"
+  // }
+
+  // function to handle timer updates from TimerInput component
+  // allows users to customize their timer intervals
   const handleSetTimers = (newTimers) => {
     setTimers(newTimers);
-    console.log("Timers updated in App:", newTimers); // debug
+    // console.log("Timers updated in App:", newTimers); debug
   }
 
+  // global clock state to manage current timer and mode
+  const [currentMode, setCurrentMode] = useState('work')
+  const [timeLeft, setTimeLeft] = useState(timers.work * 60) // in seconds
+  const [isRunning, setIsRunning] = useState(false) // whether timer is running
+
+  // return the component
   return (
     <div id="app">
       <h1>Pomodoro Timer</h1>
+
+      {/* Clock Display in MM:SS format */}
+      <ClockDisplay
+        timers={timers}
+        state={{ currentMode, timeLeft, isRunning, completedWorkIntervals }}
+        actions={{ setCurrentMode, setTimeLeft, setIsRunning, setCompletedWorkIntervals }}
+      />
+
+      {/* Allow Users to Customize Timer intervals */}
       <TimerInput  
         timers={timers}
         onSetTimers={handleSetTimers} 
       />
 
       <br/>
+      {/* This is temporary for debug! */}
       <div className="timers-display">
         <Container>
           <h2>Current Timers - Debug</h2>
