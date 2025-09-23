@@ -2,7 +2,12 @@ import { useState } from 'react'
 import { Row, Col, Container } from 'react-bootstrap'
 import styles from './TimerInput.module.css'
 
-// goal: create a timer input component to set work/break intervals
+/* purpose: create a timer input component to set work/break intervals
+* 
+*  receives props:
+*    - timers: mode:time mapping in minutes
+*    - onSetTimers: setter function for timers
+*/
 
 function TimerInput({ timers, onSetTimers }) {
 
