@@ -9,4 +9,5 @@ Currently a work in progress. Core timer is functional, styling and additional f
 - [x] Customizable Intervals
 - [ ] Session Cycles
 - [ ] Reset Sessions
+- [ ] Item Checklist
 - [ ] Clean UI Styling
